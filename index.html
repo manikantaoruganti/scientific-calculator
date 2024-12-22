@@ -1,4 +1,5 @@
-                   <!DOCTYPE html>
+        
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -20,14 +21,14 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             border-radius: 10px;
             overflow: hidden;
-            width: 100%;
-            max-width: 400px;
+            width: 90%;
+            max-width: 500px;
         }
 
         #display {
             width: 100%;
-            height: 60px;
-            font-size: 1.2em;
+            height: 70px;
+            font-size: 1.5em;
             text-align: right;
             padding: 10px;
             border: none;
@@ -43,7 +44,7 @@
 
         button {
             height: 50px;
-            font-size: 0.9em;
+            font-size: 1em;
             background: #f9f9f9;
             border: none;
             cursor: pointer;
@@ -63,35 +64,6 @@
 
         button:nth-child(5n):hover {
             background: #e68a00;
-        }
-
-        .footer-box {
-            grid-column: span 5;
-            text-align: center;
-            background: #f9f9f9;
-            color: #555;
-            font-weight: bold;
-            padding: 10px 0;
-            font-size: 0.85em;
-            box-sizing: border-box;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 480px) {
-            #display {
-                font-size: 1em;
-                height: 50px;
-            }
-
-            button {
-                height: 40px;
-                font-size: 0.8em;
-            }
-
-            .footer-box {
-                font-size: 0.8em;
-                padding: 8px 0;
-            }
         }
     </style>
 </head>
@@ -149,10 +121,106 @@
 
             <!-- Matrices -->
             <button onclick="matrixExample()">Matrix</button>
-
-            <!-- Footer -->
-            <div class="footer-box">Manikanta Venkateswarlu - All Rights Reserved</div>
         </div>
     </div>
+
+    <script>
+        let display = document.getElementById("display");
+
+        // Append a symbol or number to the display
+        function appendSymbol(symbol) {
+            display.value += symbol;
+        }
+
+        // Clear the entire display
+        function clearDisplay() {
+            display.value = "";
+        }
+
+        // Delete the last entered character
+        function deleteLast() {
+            display.value = display.value.slice(0, -1);
+        }
+
+        // Calculate the expression
+        function calculate() {
+            try {
+                display.value = eval(display.value);
+            } catch {
+                display.value = "Error";
+            }
+        }
+
+        // Factorial function
+        function factorial() {
+            try {
+                const num = parseInt(display.value);
+                if (num < 0) {
+                    display.value = "Error";
+                    return;
+                }
+                let fact = 1;
+                for (let i = 1; i <= num; i++) {
+                    fact *= i;
+                }
+                display.value = fact;
+            } catch {
+                display.value = "Error";
+            }
+        }
+
+        // Mean calculation
+        function mean() {
+            try {
+                const numbers = prompt("Enter numbers separated by commas:").split(",").map(Number);
+                const sum = numbers.reduce((a, b) => a + b, 0);
+                display.value = sum / numbers.length;
+            } catch {
+                display.value = "Error";
+            }
+        }
+
+        // Median calculation
+        function median() {
+            try {
+                const numbers = prompt("Enter numbers separated by commas:").split(",").map(Number);
+                numbers.sort((a, b) => a - b);
+                const mid = Math.floor(numbers.length / 2);
+                display.value = numbers.length % 2 === 0
+                    ? (numbers[mid - 1] + numbers[mid]) / 2
+                    : numbers[mid];
+            } catch {
+                display.value = "Error";
+            }
+        }
+
+        // Standard deviation calculation
+        function stdDev() {
+            try {
+                const numbers = prompt("Enter numbers separated by commas:").split(",").map(Number);
+                const mean = numbers.reduce((a, b) => a + b, 0) / numbers.length;
+                const variance = numbers.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / numbers.length;
+                display.value = Math.sqrt(variance);
+            } catch {
+                display.value = "Error";
+            }
+        }
+
+        // Variance calculation
+        function variance() {
+            try {
+                const numbers = prompt("Enter numbers separated by commas:").split(",").map(Number);
+                const mean = numbers.reduce((a, b) => a + b, 0) / numbers.length;
+                display.value = numbers.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / numbers.length;
+            } catch {
+                display.value = "Error";
+            }
+        }
+
+        // Example of a matrix function
+        function matrixExample() {
+            alert("Matrix operations coming soon!");
+        }
+    </script>
 </body>
 </html>
