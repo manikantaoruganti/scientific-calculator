@@ -1,4 +1,4 @@
-          <!DOCTYPE html>
+                   <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -65,21 +65,15 @@
             background: #e68a00;
         }
 
-        footer {
-            text-align: center;
-            margin-top: 10px;
-            color: #888;
-            font-size: 0.8em;
-        }
-
-        .empty-cell {
+        .footer-box {
             grid-column: span 5;
             text-align: center;
             background: #f9f9f9;
             color: #555;
             font-weight: bold;
             padding: 10px 0;
-            font-size: 0.9em;
+            font-size: 0.85em;
+            box-sizing: border-box;
         }
 
         /* Responsive adjustments */
@@ -94,13 +88,9 @@
                 font-size: 0.8em;
             }
 
-            .empty-cell {
+            .footer-box {
                 font-size: 0.8em;
                 padding: 8px 0;
-            }
-
-            footer {
-                font-size: 0.7em;
             }
         }
     </style>
@@ -160,101 +150,9 @@
             <!-- Matrices -->
             <button onclick="matrixExample()">Matrix</button>
 
-            <!-- Empty Cell -->
-            <div class="empty-cell">Manikanta Venkateswarlu - All Rights Reserved</div>
+            <!-- Footer -->
+            <div class="footer-box">Manikanta Venkateswarlu - All Rights Reserved</div>
         </div>
     </div>
-    <footer>
-        © 2024 Manikanta Venkateswarlu. All rights reserved.
-    </footer>
-    <script>
-        // JavaScript code remains unchanged
-        let display = document.getElementById("display");
-
-        function appendSymbol(symbol) {
-            display.value += symbol;
-        }
-
-        function clearDisplay() {
-            display.value = "";
-        }
-
-        function deleteLast() {
-            display.value = display.value.slice(0, -1);
-        }
-
-        function calculate() {
-            try {
-                display.value = eval(display.value);
-            } catch {
-                display.value = "Error";
-            }
-        }
-
-        function factorial() {
-            try {
-                const num = parseInt(display.value);
-                if (num < 0) {
-                    display.value = "Error";
-                    return;
-                }
-                let fact = 1;
-                for (let i = 1; i <= num; i++) {
-                    fact *= i;
-                }
-                display.value = fact;
-            } catch {
-                display.value = "Error";
-            }
-        }
-
-        function mean() {
-            try {
-                const numbers = prompt("Enter numbers separated by commas:").split(",").map(Number);
-                const sum = numbers.reduce((a, b) => a + b, 0);
-                display.value = sum / numbers.length;
-            } catch {
-                display.value = "Error";
-            }
-        }
-
-        function median() {
-            try {
-                const numbers = prompt("Enter numbers separated by commas:").split(",").map(Number);
-                numbers.sort((a, b) => a - b);
-                const mid = Math.floor(numbers.length / 2);
-                display.value = numbers.length % 2 === 0
-                    ? (numbers[mid - 1] + numbers[mid]) / 2
-                    : numbers[mid];
-            } catch {
-                display.value = "Error";
-            }
-        }
-
-        function stdDev() {
-            try {
-                const numbers = prompt("Enter numbers separated by commas:").split(",").map(Number);
-                const mean = numbers.reduce((a, b) => a + b, 0) / numbers.length;
-                const variance = numbers.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / numbers.length;
-                display.value = Math.sqrt(variance);
-            } catch {
-                display.value = "Error";
-            }
-        }
-
-        function variance() {
-            try {
-                const numbers = prompt("Enter numbers separated by commas:").split(",").map(Number);
-                const mean = numbers.reduce((a, b) => a + b, 0) / numbers.length;
-                display.value = numbers.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / numbers.length;
-            } catch {
-                display.value = "Error";
-            }
-        }
-
-        function matrixExample() {
-            alert("Matrix operations coming soon!");
-        }
-    </script>
 </body>
 </html>
