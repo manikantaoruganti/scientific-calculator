@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Full Scientific Calculator</title>
+    <title>Advanced Scientific Calculator</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -21,13 +21,13 @@
             border-radius: 10px;
             overflow: hidden;
             width: 90%;
-            max-width: 400px;
+            max-width: 500px;
         }
 
         #display {
             width: 100%;
             height: 70px;
-            font-size: 1.8em;
+            font-size: 1.5em;
             text-align: right;
             padding: 10px;
             border: none;
@@ -37,13 +37,13 @@
 
         .buttons {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             gap: 1px;
         }
 
         button {
-            height: 60px;
-            font-size: 1.2em;
+            height: 50px;
+            font-size: 1em;
             background: #f9f9f9;
             border: none;
             cursor: pointer;
@@ -56,25 +56,13 @@
             background: #dcdcdc;
         }
 
-        button:nth-child(4n) {
+        button:nth-child(5n) {
             background: #ff9800;
             color: white;
         }
 
-        button:nth-child(4n):hover {
+        button:nth-child(5n):hover {
             background: #e68a00;
-        }
-
-        @media (max-width: 600px) {
-            #display {
-                font-size: 1.5em;
-                height: 60px;
-            }
-
-            button {
-                height: 50px;
-                font-size: 1em;
-            }
         }
     </style>
 </head>
@@ -87,53 +75,54 @@
             <button onclick="deleteLast()">DEL</button>
             <button onclick="appendSymbol('%')">%</button>
             <button onclick="appendSymbol('/')">÷</button>
+            <button onclick="calculate()">=</button>
 
             <!-- Numbers -->
             <button onclick="appendSymbol('7')">7</button>
             <button onclick="appendSymbol('8')">8</button>
             <button onclick="appendSymbol('9')">9</button>
             <button onclick="appendSymbol('*')">×</button>
+            <button onclick="appendSymbol('-')">−</button>
             <button onclick="appendSymbol('4')">4</button>
             <button onclick="appendSymbol('5')">5</button>
             <button onclick="appendSymbol('6')">6</button>
-            <button onclick="appendSymbol('-')">−</button>
+            <button onclick="appendSymbol('+')">+</button>
+            <button onclick="appendSymbol('(')">(</button>
             <button onclick="appendSymbol('1')">1</button>
             <button onclick="appendSymbol('2')">2</button>
             <button onclick="appendSymbol('3')">3</button>
-            <button onclick="appendSymbol('+')">+</button>
+            <button onclick="appendSymbol('**')">^</button>
+            <button onclick="appendSymbol(')')">)</button>
             <button onclick="appendSymbol('0')">0</button>
             <button onclick="appendSymbol('.')">.</button>
-            <button onclick="calculate()">=</button>
-            <button onclick="appendSymbol('**')">^</button>
+            <button onclick="factorial()">n!</button>
+            <button onclick="appendSymbol('Math.sqrt(')">√</button>
+            <button onclick="appendSymbol('Math.PI')">π</button>
 
             <!-- Scientific Functions -->
             <button onclick="appendSymbol('Math.sin(')">sin</button>
             <button onclick="appendSymbol('Math.cos(')">cos</button>
             <button onclick="appendSymbol('Math.tan(')">tan</button>
-            <button onclick="appendSymbol('Math.asin(')">sin⁻¹</button>
-            <button onclick="appendSymbol('Math.acos(')">cos⁻¹</button>
-            <button onclick="appendSymbol('Math.atan(')">tan⁻¹</button>
-            <button onclick="appendSymbol('Math.sqrt(')">√</button>
             <button onclick="appendSymbol('Math.log(')">ln</button>
-            <button onclick="appendSymbol('Math.log10(')">log₁₀</button>
             <button onclick="appendSymbol('Math.exp(')">eˣ</button>
-            <button onclick="appendSymbol('Math.PI')">π</button>
-            <button onclick="appendSymbol('Math.E')">e</button>
-            <button onclick="appendSymbol('(')">(</button>
-            <button onclick="appendSymbol(')')">)</button>
-            <button onclick="factorial()">n!</button>
             <button onclick="appendSymbol('Math.abs(')">|x|</button>
             <button onclick="appendSymbol('Math.pow(10,')">10^</button>
             <button onclick="appendSymbol('Math.cbrt(')">∛</button>
             <button onclick="appendSymbol('Math.log2(')">log₂</button>
-            <button onclick="appendSymbol('Math.sinh(')">sinh</button>
-            <button onclick="appendSymbol('Math.cosh(')">cosh</button>
-            <button onclick="appendSymbol('Math.tanh(')">tanh</button>
-            <button onclick="appendSymbol('Math.asinh(')">sinh⁻¹</button>
-            <button onclick="appendSymbol('Math.acosh(')">cosh⁻¹</button>
-            <button onclick="appendSymbol('Math.atanh(')">tanh⁻¹</button>
+            <button onclick="appendSymbol('Math.atan2(')">atan2</button>
+
+            <!-- Statistical Functions -->
+            <button onclick="mean()">Mean</button>
+            <button onclick="median()">Median</button>
+            <button onclick="stdDev()">σ</button>
+            <button onclick="variance()">Var</button>
+            <button onclick="appendSymbol('Math.random()')">Rand</button>
+
+            <!-- Matrices -->
+            <button onclick="matrixExample()">Matrix</button>
         </div>
     </div>
+
     <script>
         let display = document.getElementById("display");
 
@@ -161,7 +150,7 @@
             }
         }
 
-        // Calculate the factorial
+        // Factorial function
         function factorial() {
             try {
                 const num = parseInt(display.value);
@@ -177,6 +166,59 @@
             } catch {
                 display.value = "Error";
             }
+        }
+
+        // Mean calculation
+        function mean() {
+            try {
+                const numbers = prompt("Enter numbers separated by commas:").split(",").map(Number);
+                const sum = numbers.reduce((a, b) => a + b, 0);
+                display.value = sum / numbers.length;
+            } catch {
+                display.value = "Error";
+            }
+        }
+
+        // Median calculation
+        function median() {
+            try {
+                const numbers = prompt("Enter numbers separated by commas:").split(",").map(Number);
+                numbers.sort((a, b) => a - b);
+                const mid = Math.floor(numbers.length / 2);
+                display.value = numbers.length % 2 === 0
+                    ? (numbers[mid - 1] + numbers[mid]) / 2
+                    : numbers[mid];
+            } catch {
+                display.value = "Error";
+            }
+        }
+
+        // Standard deviation calculation
+        function stdDev() {
+            try {
+                const numbers = prompt("Enter numbers separated by commas:").split(",").map(Number);
+                const mean = numbers.reduce((a, b) => a + b, 0) / numbers.length;
+                const variance = numbers.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / numbers.length;
+                display.value = Math.sqrt(variance);
+            } catch {
+                display.value = "Error";
+            }
+        }
+
+        // Variance calculation
+        function variance() {
+            try {
+                const numbers = prompt("Enter numbers separated by commas:").split(",").map(Number);
+                const mean = numbers.reduce((a, b) => a + b, 0) / numbers.length;
+                display.value = numbers.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / numbers.length;
+            } catch {
+                display.value = "Error";
+            }
+        }
+
+        // Example of a matrix function
+        function matrixExample() {
+            alert("Matrix operations coming soon!");
         }
     </script>
 </body>
